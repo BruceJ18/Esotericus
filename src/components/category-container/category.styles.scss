@@ -1,7 +1,7 @@
 
   .category {
     min-width: 30%;
-    height: 240px;
+    height: 300px;
     flex: 1 1 auto;
     display: flex;
     align-items: center;
@@ -20,7 +20,7 @@
         transition: transform 6s cubic-bezier(0.25, 0.45, 0.45, 0.95);
       }
   
-      & .category-body-container {
+      & .category-body {
         opacity: 0.9;
       }
     }
@@ -40,11 +40,11 @@
     .background-image {
       width: 100%;
       height: 100%;
-      background-size: cover;
+      background-size: contain;
       background-position: center;
     }
   
-    .category-body-container {
+    .category-body{
       height: 90px;
       padding: 0 25px;
       display: flex;

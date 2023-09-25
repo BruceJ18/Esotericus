@@ -1,20 +1,22 @@
-import Directory from "./components/directory/directory.component";
+import { Routes, Route } from "react-router-dom";
+import Home from "./routes/home/home.component";
+import Nav from "./routes/navigation/nav.component";
+import SignIn from "./routes/sign-in/sign-in.component";
 
 const App = () => {
-  const categories = [
-    { id: 1, title: "Hats" },
-    { id: 2, title: "Jackets" },
-    { id: 3, title: "Sneakers" },
-    { id: 4, title: "Womens" },
-    { id: 5, title: "Mens" },
-  ];
+  return(
 
-  return (
-    
-      <Directory categories={ categories } />
-      
+    <Routes>
 
+      <Route path="/" element={<Nav/>}>
+      <Route index element={<Home/>} />
+      <Route path="sign-in" element={<SignIn/>} />
+
+
+      </Route>
+    </Routes>
   );
+
 };
 
 export default App;
