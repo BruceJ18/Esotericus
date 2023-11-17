@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { signInWithGooglePopup, createUserDocumentFromAuth, signInAuthUserWithEmailPassword } from "../../utils/firebase/firebase.utils";
+import {
+  signInWithGooglePopup,
+  signInAuthUserWithEmailPassword,
+} from "../../utils/firebase/firebase.utils";
 
 import FormInput from "../form-input/formInput.component";
+
+import { BUTTON_TYPE } from "../button/button.component";
 import Button from "../button/button.component";
 
-import './sign-in.styles.scss'
-
-
-
-
-
+import "./sign-in.styles.scss";
 
 const defaultFormFields = {
   email: "",
@@ -38,24 +38,19 @@ const SignInForm = () => {
     event.preventDefault();
 
     try {
-      const { user } = await signInAuthUserWithEmailPassword(email, password)
-      
-      resetFormFields()
+      const { user } = await signInAuthUserWithEmailPassword(email, password);
 
-
+      resetFormFields();
     } catch (error) {
-      switch(error.code) {
-        case 'auth/wrong-password':
-        alert('incorrect password for email')
-        break
+      switch (error.code) {
+        case "auth/wrong-password":
+          alert("incorrect password for email");
+          break;
 
-        case 'auth/user-not-found':
-          alert('no user associated with this email ')
-          break
+        case "auth/user-not-found":
+          alert("no user associated with this email ");
+          break;
       }
-
-
-
     }
   };
 
@@ -63,7 +58,7 @@ const SignInForm = () => {
     <div className="sign-in-container">
       <h2>Already have an account</h2>
       <span>sign in with your email and password</span>
-      <form >
+      <form>
         <FormInput
           label="Email"
           type="email"
@@ -81,10 +76,16 @@ const SignInForm = () => {
           value={password}
         />
 
-      <div className="buttons-container">
-        <Button type="submit">sign in</Button>
-        <Button type='button'  buttonType="google" onClick={signInWithGoogle} >google sign in</Button>
-      </div>
+        <div className="buttons-container">
+          <Button type="submit">sign in</Button>
+          <Button
+            type="button"
+            buttonType={BUTTON_TYPE.google}
+            onClick={signInWithGoogle}
+          >
+            google sign in
+          </Button>
+        </div>
       </form>
     </div>
   );
