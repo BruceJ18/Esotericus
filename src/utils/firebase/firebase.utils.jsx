@@ -1,4 +1,3 @@
-import { queries } from "@testing-library/react";
 import { initializeApp } from "firebase/app";
 import {
   getAuth,
@@ -14,12 +13,11 @@ import {
   getFirestore,
   doc,
   getDoc,
-  setdoc,
   setDoc,
   collection,
   writeBatch,
   query,
-  getDocs
+  getDocs,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -33,15 +31,16 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig);
 
-const provider = new GoogleAuthProvider();
-provider.setCustomParameters({
+const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({
   prompt: "select_account",
 });
 
 export const auth = getAuth();
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+export const signInWithGooglePopup = () =>
+  signInWithPopup(auth, googleProvider);
 export const signInWithGoogleRedirect = () =>
-  signInWithRedirect(auth, provider);
+  signInWithRedirect(auth, googleProvider);
 
 export const db = getFirestore();
 
@@ -64,20 +63,18 @@ export const addCollectionAndDocs = async (
 };
 
 export const getCategoriesAndDocuments = async () => {
-  const collectionRef = collection(db, 'categories');
+  const collectionRef = collection(db, "categories");
   const q = query(collectionRef);
 
   const querySnapShot = await getDocs(q);
   const categoryMap = querySnapShot.docs.reduce((acc, docSnapShot) => {
-    const {title, items} = docSnapShot.data();
+    const { title, items } = docSnapShot.data();
     acc[title.toLowerCase()] = items;
     return acc;
   }, {});
 
   return categoryMap;
-}
-
-
+};
 
 export const createUserDocumentFromAuth = async (
   userAuth,

@@ -10,6 +10,7 @@ import { BUTTON_TYPE } from "../button/button.component";
 import Button from "../button/button.component";
 
 import "./sign-in.styles.scss";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const defaultFormFields = {
   email: "",
@@ -39,8 +40,8 @@ const SignInForm = () => {
 
     try {
       const { user } = await signInAuthUserWithEmailPassword(email, password);
-
       resetFormFields();
+
     } catch (error) {
       switch (error.code) {
         case "auth/wrong-password":
@@ -58,7 +59,7 @@ const SignInForm = () => {
     <div className="sign-in-container">
       <h2>Already have an account</h2>
       <span>sign in with your email and password</span>
-      <form>
+      <form onSubmit={handleSubmit}>
         <FormInput
           label="Email"
           type="email"
@@ -77,7 +78,7 @@ const SignInForm = () => {
         />
 
         <div className="buttons-container">
-          <Button type="submit">sign in</Button>
+          <Button type="submit" >sign in</Button>
           <Button
             type="button"
             buttonType={BUTTON_TYPE.google}
